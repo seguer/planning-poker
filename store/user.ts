@@ -23,13 +23,22 @@ export const useUserStore = defineStore('user', {
 				this.config.showDebug = user.config.showDebug
 			}
 		},
+		save(): void {
+			storage.setItem('user', {
+				name: this.name,
+				config: {
+					role: this.config.role,
+					showDebug: this.config.showDebug,
+				},
+			})
+		},
 		setName(name: string): boolean {
 			if (name.trim().length === 0) {
 				return false
 			}
 
 			this.name = name
-			storage.setItem('user', this)
+			this.save()
 			return true
 		},
 		setRole(role: string): boolean {
@@ -38,12 +47,12 @@ export const useUserStore = defineStore('user', {
 			}
 
 			this.config.role = role
-			storage.setItem('user', this)
+			this.save()
 			return true
 		},
 		setDebug(debug: boolean): boolean {
 			this.config.showDebug = debug
-			storage.setItem('user', this)
+			this.save()
 			return true
 		},
 	}
