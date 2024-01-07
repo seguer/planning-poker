@@ -1,0 +1,29 @@
+{
+  "name": "seguer-planning-poker",
+  "version": "1.0.0",
+  "description": "Planning Poker",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "nuxt": "^3.0.0",
+    "sass": "^1.57.1"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.1.96",
+    "@pinia/nuxt": "^0.5.1",
+    "eventemitter3": "^5.0.0",
+    "lodash": "^4.17.21",
+    "peerjs": "^1.4.7",
+    "pinia": "^2.1.7",
+    "randomatic": "^3.1.1",
+    "uuid": "^9.0.0",
+    "vue": "^3.4.1",
+    "vuetify": "^3.4.9"
+  }
+}
