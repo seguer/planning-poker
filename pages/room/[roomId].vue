@@ -7,14 +7,19 @@
 
 				<other-player v-for="otherPlayer in data.game.players" :player="data.player" :other-player="otherPlayer" :votes="data.game.votes[otherPlayer.id]" :show-votes="data.game.showVotes" class="mt-4" />
 			</v-col>
-			<v-col cols="2">
+			<v-col cols="auto">
 				<v-card v-if="data.host" class="mb-4">
 					<v-card-title>Controls</v-card-title>
 					<v-card-text>
-						<v-btn-toggle v-model="data.game.showVotes" block divided mandatory variant="outlined">
-							<v-btn :value="true">Show Votes</v-btn>
-							<v-btn :value="false">Hide Votes</v-btn>
+						<p>Votes</p>
+						<v-btn-toggle v-model="data.game.showVotes" class="mt-2" block divided mandatory variant="outlined">
+							<v-btn :value="false">Hide</v-btn>
+							<v-btn :value="true">Show</v-btn>
 						</v-btn-toggle>
+					</v-card-text>
+
+					<v-card-text>
+						<v-btn block color="blue-grey">Clear Votes</v-btn>
 					</v-card-text>
 				</v-card>
 
@@ -22,8 +27,8 @@
 					<v-card-title>Config</v-card-title>
 					<v-card-text>
 						<v-btn-toggle v-model="data.player.config.role" block divided mandatory variant="outlined">
-							<v-btn value="voting">Voting</v-btn>
-							<v-btn value="observing">Observing</v-btn>
+							<v-btn value="voting">Vote</v-btn>
+							<v-btn value="observing">Observe</v-btn>
 						</v-btn-toggle>
 						<v-switch v-model="data.player.config.showDebug" label="Show debug" hide-details></v-switch>
 					</v-card-text>

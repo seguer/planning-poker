@@ -103,7 +103,7 @@ export class PlanningPoker extends EventEmitter {
 			this.clearVotesForPlayer(playerId)
 		})
 
-		this.sync()
+		this.sync([], [], true)
 	}
 
 	public clearVotesForPlayer(playerId) {
@@ -111,7 +111,7 @@ export class PlanningPoker extends EventEmitter {
 		this.gameStore.setRoundVotes(playerId, 2, lodash.cloneDeep(TEMPLATE_ROUND_2))
 	}
 
-	public sync(whitelist = [], blacklist = []) {
+	public sync(whitelist = [], blacklist = [], forced = false) {
 		// Sends out game updates, if used directly will not be throttled
 		// cancel any syncs that are queued
 		this.queueSync.cancel()
@@ -132,6 +132,7 @@ export class PlanningPoker extends EventEmitter {
 			votes: this.gameStore.votes,
 			players: players,
 			playerIds: this.gameStore.playerIds,
+			forced: forced,
 		}
 
 		this.engine.broadcast('state', state, whitelist, blacklist)
@@ -140,7 +141,7 @@ export class PlanningPoker extends EventEmitter {
 	private onPlayerJoined(playerId) {
 		this.gameStore.addPlayer(playerId)
 		this.clearVotesForPlayer(playerId)
-		this.queueSync()
+		this.queueSync([], [], true)
 	}
 
 	private onPlayerLeave(playerId) {
@@ -178,11 +179,16 @@ export class PlanningPoker extends EventEmitter {
 
 	private receiveInfo(playerId: string, data: object) {
 		this.gameStore.updateInfo(playerId, data)
-		this.queueSync()
+		this.queueSync([], [], true)
 	}
 
 	private receiveState(playerId: string, state: object) {
+		console.log('receiveState', state)
 		delete state.players[this.gameStore.playerId]
+
+		if (state.forced === false) {
+			delete state.votes[this.gameStore.playerId]
+		}
 
 		this.gameStore.setShowVotes(state.showVotes)
 		this.gameStore.setVotes(state.votes)

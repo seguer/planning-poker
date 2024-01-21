@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', {
 			role: 'voting',
 			showDebug: false,
 		},
+		dark: true,
 	}),
 	getters: {
 	},
@@ -21,6 +22,7 @@ export const useUserStore = defineStore('user', {
 				this.name = user.name
 				this.config.role = user.config.role
 				this.config.showDebug = user.config.showDebug
+				this.dark = user.dark
 			}
 		},
 		save(): void {
@@ -30,6 +32,7 @@ export const useUserStore = defineStore('user', {
 					role: this.config.role,
 					showDebug: this.config.showDebug,
 				},
+				dark: this.dark,
 			})
 		},
 		setName(name: string): boolean {
@@ -52,6 +55,11 @@ export const useUserStore = defineStore('user', {
 		},
 		setDebug(debug: boolean): boolean {
 			this.config.showDebug = debug
+			this.save()
+			return true
+		},
+		setDark(dark: boolean): boolean {
+			this.dark = dark
 			this.save()
 			return true
 		},
