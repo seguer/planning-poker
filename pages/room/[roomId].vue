@@ -19,7 +19,7 @@
 					</v-card-text>
 
 					<v-card-text>
-						<v-btn block color="blue-grey">Clear Votes</v-btn>
+						<v-btn block color="blue-grey" @click="clearVotes">Clear Votes</v-btn>
 					</v-card-text>
 				</v-card>
 
@@ -77,4 +77,5 @@ const data = c.data
 
 // Methods
 const playerInfoUpdated = c.playerInfoUpdated.bind(c)
+const clearVotes = c.clearVotes.bind(c)
 </script>

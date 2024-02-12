@@ -101,4 +101,8 @@ export class PlanningPoker {
 		this.data.dialogs.playerInfo = false
 		this.start()
 	}
+
+	public clearVotes() {
+		this.game.clearVotes()
+	}
 }
